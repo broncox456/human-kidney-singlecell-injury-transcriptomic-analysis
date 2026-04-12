@@ -114,7 +114,7 @@ A Seurat v5-specific issue was encountered during differential expression analys
 
 ```r
 seurat_obj <- JoinLayers(seurat_obj, assay = "RNA")
-
+```
 human-kidney-singlecell-injury-transcriptomic-analysis/
 ├── results/
 │   ├── figures/
