@@ -4,22 +4,20 @@
 
 This project explores cellular heterogeneity and injury-related transcriptional programs in human kidney tissue using single-cell RNA sequencing data from **GSE131685**.
 
-The objective was to build a structured and reproducible Seurat v5 pipeline, focusing on biologically meaningful clustering and marker gene identification within a clinically relevant nephrology context.
+The objective was to build a structured and reproducible **Seurat v5** pipeline for quality control, dimensionality reduction, clustering, marker identification, and preliminary biological interpretation in a clinically relevant nephrology setting.
 
 ---
 
 ## Clinical Context
 
-Kidney disease is characterized by complex interactions between epithelial, immune, and stromal cell populations.
+Kidney disease emerges from complex interactions between epithelial, immune, and stromal cell populations. Studying these compartments at single-cell resolution helps reveal:
 
-Understanding these interactions at the single-cell level is critical for:
+- injury-associated transcriptional programs
+- cell-type-specific vulnerability
+- inflammatory infiltration
+- potential mechanisms of disease progression
 
-- identifying early injury signatures
-- detecting cell-type-specific vulnerability
-- understanding inflammatory infiltration
-- exploring mechanisms of disease progression
-
-This analysis focuses on tubular function, immune infiltration, and cellular stress responses, all central to kidney injury.
+This analysis focuses on **renal epithelial heterogeneity**, **immune cell infiltration**, and **stress-response signatures** relevant to kidney injury.
 
 ---
 
@@ -28,37 +26,37 @@ This analysis focuses on tubular function, immune infiltration, and cellular str
 - **Source:** Gene Expression Omnibus (GEO)
 - **Accession:** GSE131685
 - **Data type:** Single-cell RNA sequencing
-- **Framework:** Seurat v5 (R)
+- **Analysis framework:** Seurat v5 in R
 
 ---
 
 ## Analytical Workflow
 
-The analysis was performed using a reproducible stepwise pipeline:
+The analysis followed a reproducible stepwise workflow:
 
 1. Download GEO supplementary files
-2. Construct Seurat objects from raw count matrices
-3. Merge samples into a unified dataset
+2. Construct Seurat objects from matrix, barcode, and feature files
+3. Merge samples into a unified Seurat object
 4. Perform quality control filtering
 5. Normalize expression data
 6. Identify variable features
 7. Run PCA
 8. Perform graph-based clustering
 9. Generate UMAP visualizations
-10. Identify cluster-specific marker genes
+10. Detect cluster-specific marker genes
 11. Perform preliminary biological annotation
 
 ---
 
 ## Quality Control Strategy
 
-Cells were filtered using:
+Cells were filtered using the following thresholds:
 
 - **nFeature_RNA ≥ 200**
 - **nFeature_RNA ≤ 6000**
 - **percent.mt ≤ 15**
 
-This removed low-quality cells, empty droplets, and high-mitochondrial profiles associated with stressed or dying cells.
+This reduced low-quality cells, probable empty droplets, and high-mitochondrial-content profiles associated with stressed or dying cells.
 
 ---
 
@@ -66,16 +64,16 @@ This removed low-quality cells, empty droplets, and high-mitochondrial profiles 
 
 ### 1. Clustering
 
-A total of **13 transcriptionally distinct clusters** were identified at resolution **0.4**, reflecting substantial cellular heterogeneity.
+A total of **13 transcriptionally distinct clusters** were identified at clustering resolution **0.4**, indicating substantial cellular heterogeneity within the dataset.
 
 ### 2. Dimensionality Reduction
 
 Dimensionality reduction was successfully performed using:
 
-- **PCA**
-- **UMAP**
+- **Principal Component Analysis (PCA)**
+- **Uniform Manifold Approximation and Projection (UMAP)**
 
-Available outputs include:
+Generated outputs include:
 
 - `results/figures/elbowplot_pca.png`
 - `results/figures/pca_by_sample.png`
@@ -84,37 +82,48 @@ Available outputs include:
 
 ### 3. Marker Gene Analysis
 
-Marker detection was performed using `FindAllMarkers()` after joining assay layers in Seurat v5.
+Marker detection was performed using `FindAllMarkers()` after resolving a Seurat v5 layer issue.
 
-A total of **5,324 marker genes** were identified across clusters, and a top-marker summary was generated for all 13 clusters.
-
-### 4. Preliminary Biological Interpretation
-
-Cluster-level marker analysis suggested the presence of:
-
-- **Proximal tubular populations** with markers such as `FABP1`, `S100A1`, and `GPX3`
-- **Distal tubular populations** with markers including `PVALB` and `DUSP9`
-- **Collecting duct signatures** with `AQP2` and `CLDN8`
-- **T / NK-like immune populations** marked by `TRDC`, `GZMA`, and `CTSW`
-- **B-cell populations** marked by `CD79A`, `MS4A1`, and `IGHM`
-- **Monocyte / macrophage-like populations** with `CSF1R`, `FPR1`, and `S100A12`
-- **Stress/injury-related transcriptional programs** including `GSTP1`, `SOD2`, and `APP`
-
-These findings support a mixed renal epithelial and immune landscape with evidence of injury-related transcriptional heterogeneity.
+A total of **5,324 marker genes** were identified across clusters, with top-marker summaries generated for all 13 clusters.
 
 ---
 
-## Technical Note
+## Technical Note: Seurat v5 Layer Issue
 
-A Seurat v5-specific issue was encountered during differential expression analysis:
+During differential expression analysis, `FindAllMarkers()` initially returned no genes because assay layers were not joined.
 
-- `FindAllMarkers()` initially returned no markers
-- the warning indicated that assay layers were not joined
-- this was resolved using:
+This was corrected using:
 
 ```r
 seurat_obj <- JoinLayers(seurat_obj, assay = "RNA")
+
 ```
+=======
+
+Preliminary Biological Interpretation
+
+Cluster-level marker analysis suggested a mixed renal epithelial and immune landscape:
+
+Renal epithelial populations : 
+
+Proximal tubule: FABP1, S100A1, GPX3
+Distal tubule: PVALB, DUSP9
+Collecting duct: AQP2, CLDN8
+
+Immune populations :
+
+T / NK-like cells: TRDC, GZMA, CTSW
+B cells: CD79A, MS4A1, IGHM
+Monocyte / macrophage-like cells: CSF1R, FPR1, S100A12
+
+Injury / stress-associated signals :
+
+GSTP1, SOD2, APP
+
+These findings support the presence of epithelial heterogeneity, immune infiltration, and injury-related transcriptional activity within human kidney tissue.
+
+Repository Structure :
+
 human-kidney-singlecell-injury-transcriptomic-analysis/
 ├── results/
 │   ├── figures/
@@ -129,10 +138,9 @@ human-kidney-singlecell-injury-transcriptomic-analysis/
 ├── .gitignore
 └── README.md
 
+Main Outputs :
 
-Main Outputs
-
-Figures:
+Figures: 
 
 QC violin plots
 QC scatter plots
@@ -149,7 +157,6 @@ marker gene tables
 top-marker summaries
 cluster annotation summary
 
-
 Limitations:
 
 Cell type annotation remains preliminary
@@ -162,9 +169,9 @@ Future Directions:
 Refined renal cell-type annotation using curated references
 Trajectory analysis for injury and repair states
 Integration with clinical metadata
-Comparative analysis across disease groups
+Comparative analysis across disease subgroups
 
-Why This Project:
+Why This Project: 
 
 This repository demonstrates:
 
