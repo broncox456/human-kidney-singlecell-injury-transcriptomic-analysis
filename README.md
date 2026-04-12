@@ -1,6 +1,6 @@
 # Human Kidney Single-Cell RNA-seq – Injury and Cellular Heterogeneity Analysis
 
-![UMAP Clustering](results/figures/umap_by_cluster_res_0_4.png)
+![UMAP Clustering](results/figures/umap_publication_ready.png)
 
 This project explores cellular heterogeneity and injury-related transcriptional programs in human kidney tissue using single-cell RNA sequencing data from **GSE131685**.
 
@@ -62,6 +62,47 @@ This reduced low-quality cells, probable empty droplets, and high-mitochondrial-
 
 ## Key Results
 
+This analysis reveals a biologically meaningful structure within human kidney tissue, highlighting three major axes:
+
+### 1. Functional epithelial heterogeneity
+
+Distinct tubular populations were identified, including proximal, distal, and collecting duct cells.
+
+- Proximal tubule clusters showed enrichment in metabolic genes (FABP1, GPX3), consistent with high metabolic demand.
+- Distal and collecting duct clusters expressed transport-related markers (PVALB, AQP2), reflecting functional specialization.
+
+This supports the presence of **functional compartmentalization within renal epithelium**.
+
+---
+
+### 2. Evidence of immune infiltration
+
+Multiple clusters were consistent with immune populations:
+
+- T/NK cells (TRDC, GZMA)
+- B cells (CD79A, MS4A1)
+- Monocyte/macrophage populations (CSF1R, FPR1)
+
+This indicates that the dataset captures a **mixed epithelial-immune microenvironment**, which is highly relevant in kidney disease.
+
+---
+
+### 3. Injury and oxidative stress signatures
+
+Several clusters showed strong enrichment of stress-related genes:
+
+- GSTP1, SOD2 → oxidative stress response
+- APP → cellular stress and injury pathways
+
+These findings suggest the presence of **active injury-related transcriptional programs**, likely reflecting cellular stress or pathological states.
+
+---
+
+### Overall interpretation
+
+The dataset reflects a **heterogeneous renal environment combining epithelial specialization, immune infiltration, and injury-related signaling**.
+
+This pattern is consistent with early or ongoing kidney injury processes and highlights the value of single-cell transcriptomics for detecting complex tissue states.
 ### 1. Clustering
 
 A total of **13 transcriptionally distinct clusters** were identified at clustering resolution **0.4**, indicating substantial cellular heterogeneity within the dataset.
@@ -99,28 +140,19 @@ seurat_obj <- JoinLayers(seurat_obj, assay = "RNA")
 
 ```
 =======
+## Biological Interpretation
 
-Preliminary Biological Interpretation
+Cluster-level marker analysis revealed a complex renal microenvironment composed of epithelial, immune, and stress-responsive populations.
 
-Cluster-level marker analysis suggested a mixed renal epithelial and immune landscape:
+Rather than representing isolated cell types, the data suggests a **dynamic system where epithelial cells coexist with immune infiltration and injury-related transcriptional activity**.
 
-Renal epithelial populations : 
+Key observations:
 
-Proximal tubule: FABP1, S100A1, GPX3
-Distal tubule: PVALB, DUSP9
-Collecting duct: AQP2, CLDN8
+- Tubular epithelial cells show clear metabolic and transport specialization.
+- Immune populations indicate active surveillance or inflammatory processes.
+- Stress-related gene expression suggests oxidative or injury-driven cellular states.
 
-Immune populations :
-
-T / NK-like cells: TRDC, GZMA, CTSW
-B cells: CD79A, MS4A1, IGHM
-Monocyte / macrophage-like cells: CSF1R, FPR1, S100A12
-
-Injury / stress-associated signals :
-
-GSTP1, SOD2, APP
-
-These findings support the presence of epithelial heterogeneity, immune infiltration, and injury-related transcriptional activity within human kidney tissue.
+This integrated view aligns with known mechanisms of kidney disease, where epithelial dysfunction, inflammation, and cellular stress interact to drive pathology..
 
 Repository Structure :
 
@@ -173,6 +205,17 @@ Comparative analysis across disease subgroups
 
 Why This Project: 
 
+## Clinical Relevance
+
+This analysis provides a framework to explore how different cellular compartments contribute to kidney injury.
+
+The coexistence of epithelial specialization, immune infiltration, and stress signaling suggests that:
+
+- injury is not limited to a single cell type
+- multiple biological processes occur simultaneously
+- early transcriptional changes may precede structural damage
+
+This reinforces the importance of multi-cellular analysis in understanding kidney disease progression.
 This repository demonstrates:
 
 reproducible single-cell RNA-seq analysis in R
