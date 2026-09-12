@@ -217,7 +217,16 @@ stress-response signaling
 
 These processes occur simultaneously, supporting a multicellular model of kidney disease progression.
 
-Author
+---
 
-Cristian Arias, MD
-Nephrologist | Healthcare Data Scientist | Bioinformatics MSc Candidate
+## Scope and Disclaimer
+
+**Status:** public-data reanalysis — exploratory and hypothesis-generating. Cell-type annotation is manual and marker-based; no trajectory analysis. Not a validated clinical tool, not a medical device, no regulatory clearance. Results must not be used for patient-level decisions.
+
+**Data provenance:** public GEO single-cell RNA-seq dataset GSE131685 (human kidney tissue). No identifiable patient data are used or shared.
+
+## Author
+
+**Cristian Arias Ramírez, MD, MSc** — Nephrologist & Internal Medicine Specialist · MSc Bioinformatics and Precision Medicine (Universidad Alfonso X el Sabio, 2026)
+
+[LinkedIn](https://www.linkedin.com/in/cristian-arias-healthcare-data/) · [Full portfolio](https://github.com/broncox456)
