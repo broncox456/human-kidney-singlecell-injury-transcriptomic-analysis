@@ -162,60 +162,50 @@ human-kidney-singlecell-injury-transcriptomic-analysis/
 │   ├── 04_clustering_umap_gse131685.R
 │   ├── 05_marker_genes_annotation.R
 │   └── 06_cluster_annotation_summary.R
-└── README.md
+└── RDME.md
+```
 
 ## Reproducibility
 
-Environment
+### Environment
 
-This project was developed in R using Seurat v5 for single-cell RNA-seq analysis.
+Developed in R using Seurat v5. Main packages: `Seurat`, `dplyr`, `ggplot2`, `patchwork`.
 
-Main packages used:
+### Execution Order
 
-Seurat
-dplyr
-ggplot2
-patchwork
-
-## Execution Order :
-
+```r
 source("scripts/01_initialize_seurat_gse131685.R")
 source("scripts/02_qc_filtering_gse131685.R")
 source("scripts/03_normalize_pca_gse131685.R")
 source("scripts/04_clustering_umap_gse131685.R")
 source("scripts/05_marker_genes_annotation.R")
 source("scripts/06_cluster_annotation_summary.R")
+```
 
-## Main outputs :
+### Main Outputs
 
--annotated UMAP: results/figures/umap_celltype_annotation.png
--PCA by sample: results/figures/pca_by_sample.png
--publication-ready UMAP: results/figures/umap_publication_ready.png
--cluster annotation summary: `results/tables/cluster_annotation_summary.csv`
--marker table: results/tables/all_markers.csv
+- Annotated UMAP: `results/figures/umap_celltype_annotation.png`
+- PCA by sample: `results/figures/pca_by_sample.png`
+- Publication-ready UMAP: `results/figures/umap_publication_ready.png`
+- Cluster annotation summary: `results/tables/cluster_annotation_summary.csv`
+- Marker table: `results/tables/all_markers.csv`
 
-## Limitations : 
+## Limitations
 
-cell type annotation was performed through cluster-level marker interpretation and biologically informed manual curation
-external reference-based annotation was not included in this version
-no trajectory or pseudotime analysis
-no integration with clinical metadata
+- Cell-type annotation performed through cluster-level marker interpretation and biologically informed manual curation
+- External reference-based annotation not included in this version
+- No trajectory or pseudotime analysis
+- No integration with clinical metadata
 
-## Future Directions :
+## Future Directions
 
-reference-based annotation (Azimuth / CellTypist)
-trajectory analysis of injury-repair processes
-integration with clinical or disease-stage metadata
+- Reference-based annotation (Azimuth / CellTypist)
+- Trajectory analysis of injury–repair processes
+- Integration with clinical or disease-stage metadata
 
-## Clinical Relevance :
+## Clinical Relevance
 
-This analysis demonstrates that kidney injury is not restricted to a single compartment but involves:
-
-epithelial dysfunction
-immune activation
-stress-response signaling
-
-These processes occur simultaneously, supporting a multicellular model of kidney disease progression.
+Kidney injury is not restricted to a single compartment. Epithelial dysfunction, immune activation and stress-response signalling occur simultaneously, supporting a multicellular model of kidney disease progression.
 
 ---
 
